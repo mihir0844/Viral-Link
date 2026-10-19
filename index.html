@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090711">
+<title>Viral Video Hub</title>
+<style>
+:root{--bg:#07060b;--panel:#11101a;--muted:#a9a6bb;--pink:#ff329a;--purple:#792cff;--line:#342044}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+button,input{font:inherit}button{cursor:pointer;color:inherit}
+header{position:sticky;top:0;z-index:5;background:#0c0a16ee;backdrop-filter:blur(12px);border-bottom:2px solid transparent;border-image:linear-gradient(90deg,var(--purple),var(--pink)) 1}
+.top{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:12px}
+.brand{font-size:clamp(20px,5vw,29px);font-weight:950;letter-spacing:-1px}.brand span{background:linear-gradient(90deg,#a24aff,#ff329a);color:transparent;background-clip:text}
+.iconbtn{border:0;background:transparent;font-size:26px;padding:7px}
+main{max-width:760px;margin:auto;padding:16px 14px 100px}
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.feature button{min-height:94px;border:1px solid #6d3b8e;border-radius:23px;background:linear-gradient(115deg,#7d22f5,#fa279b);font-weight:850;font-size:20px;padding:14px 8px}
+.feature button:nth-child(2){background:linear-gradient(120deg,#111b39,#07112a);border-color:#253b78}
+.feature small{display:block;font-size:13px;color:#eee;margin-top:5px}
+.categories{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 24px}
+.chip{border:1px solid #292632;background:#1b1922;border-radius:24px;padding:9px 14px;font-weight:750}
+.chip.active{background:linear-gradient(90deg,#8125ef,#e42da6);border-color:transparent}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 14px}
+h2{font-size:25px;margin:0}.smallbtn{border:1px solid #6e2ca4;background:linear-gradient(90deg,#7825e9,#ed299e);border-radius:25px;padding:9px 13px;font-weight:800}
+.notice{border:1px solid #66501d;background:#1c1609;color:#ffdc70;border-radius:20px;padding:12px;text-align:center;margin:0 0 18px;font-weight:750}
+.videos{display:grid;gap:18px}
+.card{border:2px solid #7337a0;background:linear-gradient(150deg,#151321,#0d0b12);border-radius:24px;overflow:hidden;box-shadow:0 0 16px #7623a51c}
+.thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#21192c}
+.thumbwrap{position:relative}.duration{position:absolute;right:12px;bottom:12px;background:#09070fe8;border:1px solid #7633a0;border-radius:10px;padding:5px 10px;font-weight:800}
+.info{padding:12px 14px 14px}.title{font-size:18px;font-weight:850;margin:0 0 10px}
+.meta{display:flex;align-items:center;gap:14px;color:#c3bfd1;font-size:14px}.like{border:0;background:#2b152b;border-radius:20px;padding:6px 10px}.share{margin-left:auto;border:1px solid #54306c;background:#24112d;border-radius:50%;width:42px;height:42px;font-size:20px}
+.empty{color:var(--muted);text-align:center;padding:28px}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:6;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#0c0a12f5;border-top:1px solid #292034}
+.bottom button{border:0;background:transparent;border-radius:18px;padding:10px;color:#aaa5b7;font-weight:800;font-size:16px}.bottom button.active{background:linear-gradient(120deg,#35114d,#60117c);color:#fff}
+.searchbox{display:none;margin:0 0 14px}.searchbox.show{display:block}.searchbox input{width:100%;padding:12px 15px;border:1px solid #4b2c63;background:#15111e;color:white;border-radius:14px;outline:none}
+.overlay{position:fixed;inset:0;z-index:20;background:#000e;display:flex;align-items:center;justify-content:center;padding:20px}.modal{max-width:440px;width:100%;background:#17151a;border:1px solid #5b4a28;border-radius:28px;padding:26px 22px;text-align:center;box-shadow:0 12px 55px #000b}.shield{font-size:44px;color:#ffd55a}.modal h1{font-size:26px;margin:10px 0}.modal p{color:#d0ccd5;line-height:1.65}.confirm{width:100%;border:0;border-radius:16px;padding:15px;background:linear-gradient(90deg,#ffb52f,#ff8a00);color:#1b1200;font-weight:900;margin-top:10px}.exit{width:100%;border:1px solid #39343d;border-radius:16px;padding:13px;background:#201e23;margin-top:9px}
+footer{color:#777184;text-align:center;font-size:12px;padding:22px 0}
+@media(min-width:600px){main{padding-top:24px}.videos{grid-template-columns:1fr 1fr}.card .title{font-size:17px}}
+</style>
+</head>
+<body>
+<header><div class="top">
+<button class="iconbtn" id="menuBtn" aria-label="Menu">☰</button>
+<div class="brand">VIRAL <span>VIDEO</span> HUB</div>
+<button class="iconbtn" id="searchBtn" aria-label="Search">⌕</button>
+</div></header>
+<main>
+<div class="feature">
+<button id="allBtn">▶ সব ভিডিও<small>নতুন পোস্ট আগে</small></button>
+<button id="trendBtn">♨ ট্রেন্ডিং<small>জনপ্রিয় ভিডিও</small></button>
+</div>
+<div class="searchbox" id="searchbox"><input id="search" placeholder="ভিডিও খুঁজুন…"></div>
+<div class="categories" id="categories">
+<button class="chip active" data-cat="সব">সব ভিডিও</button><button class="chip" data-cat="বাংলা">বাংলা</button><button class="chip" data-cat="কমেডি">কমেডি</button><button class="chip" data-cat="AI">AI ভিডিও</button><button class="chip" data-cat="ভ্রমণ">ভ্রমণ</button><button class="chip" data-cat="শিক্ষা">শিক্ষা</button><button class="chip" data-cat="প্রকৃতি">প্রকৃতি</button>
+</div>
+<div class="sectionhead"><h2 id="sectionTitle">Latest Videos</h2><button class="smallbtn" id="rulesBtn">▶ ভিডিও দেখার নিয়ম</button></div>
+<div class="notice">📢 নতুন ভিডিও দেখতে পেজটি বুকমার্ক করুন</div>
+<div class="videos" id="videos"></div>
+<footer>Demo template • নিজের ভিডিও ও অনুমোদিত বিজ্ঞাপন যোগ করুন</footer>
+</main>
+<nav class="bottom"><button class="active" id="homeTab">⌂<br>হোম</button><button id="profileTab">♙<br>প্রোফাইল</button></nav>
+<div class="overlay" id="ageOverlay">
+<div class="modal"><div class="shield">♙◈</div><h1>বয়স নিশ্চিতকরণ</h1><p>এই সাইটে প্রবেশের আগে নিশ্চিত করুন যে আপনি আপনার দেশের প্রযোজ্য ন্যূনতম বয়স পূরণ করেছেন। এই বোতামটি পরিচয় বা বয়স যাচাই করে না।</p><button class="confirm" id="confirmAge">হ্যাঁ, আমি প্রযোজ্য বয়স পূরণ করেছি</button><button class="exit" id="exitAge">না, বের হয়ে যান</button></div>
+</div>
+<script>
+const sampleVideos=[
+ {title:"মজার AI ফলের কার্টুন 🍓",cat:"AI",duration:"0:30",views:359,likes:9,img:"",fallback:"https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?auto=format&fit=crop&w=1000&q=80"},
+ {title:"বাংলার সুন্দর প্রকৃতি 🌿",cat:"প্রকৃতি",duration:"0:45",views:612,likes:18,img:"https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"},
+ {title:"মজার কমেডি ক্লিপ 😄",cat:"কমেডি",duration:"1:12",views:247,likes:15,img:"https://images.unsplash.com/photo-1527224857830-43a7acc85260?auto=format&fit=crop&w=1000&q=80"},
+ {title:"ভ্রমণের সুন্দর মুহূর্ত ✈️",cat:"ভ্রমণ",duration:"2:05",views:481,likes:23,img:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80"},
+ {title:"নতুন কিছু শিখুন 📚",cat:"শিক্ষা",duration:"3:10",views:190,likes:7,img:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80"}
+];
+let selected="সব",trending=false,profile=false;
+const el=id=>document.getElementById(id);
+function render(){
+ let q=(el("search").value||"").toLowerCase();
+ let list=sampleVideos.filter(v=>(selected==="সব"||v.cat===selected)&&v.title.toLowerCase().includes(q));
+ if(trending)list.sort((a,b)=>b.views-a.views);
+ el("videos").innerHTML=list.length?list.map((v,i)=>`<article class="card"><div class="thumbwrap"><img class="thumb" src="${v.fallback}" alt="${v.title}" loading="lazy"><span class="duration">${v.duration}</span></div><div class="info"><p class="title">${v.title}</p><div class="meta"><span>◉ ${v.views}</span><button class="like" data-like="${i}">💗 <span>${v.likes}</span></button><button class="share" data-share="${i}" aria-label="Share">↗</button></div></div></article>`).join(""):'<div class="empty">কোনো ভিডিও পাওয়া যায়নি।</div>';
+ el("sectionTitle").textContent=profile?"প্রোফাইল":trending?"Trending Videos":"Latest Videos";
+ el("profileTab").classList.toggle("active",profile);el("homeTab").classList.toggle("active",!profile);
+ el("videos").querySelectorAll("[data-like]").forEach(b=>b.onclick=()=>{let s=b.querySelector("span");s.textContent=Number(s.textContent)+1;b.disabled=true;b.style.opacity=".65"});
+ el("videos").querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{let v=list[Number(b.dataset.share)];let data={title:v.title,text:v.title,url:location.href};try{if(navigator.share)await navigator.share(data);else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);alert("সাইটের লিংক কপি হয়েছে");}else alert(location.href)}catch(e){}});
+}
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c===b));trending=false;profile=false;render()});
+el("searchBtn").onclick=()=>{el("searchbox").classList.toggle("show");if(el("searchbox").classList.contains("show"))el("search").focus()};
+el("search").addEventListener("input",render);
+el("allBtn").onclick=()=>{trending=false;profile=false;selected="সব";render()};
+el("trendBtn").onclick=()=>{trending=true;profile=false;render()};
+el("homeTab").onclick=()=>{profile=false;trending=false;render()};
+el("profileTab").onclick=()=>{profile=true;render();el("videos").innerHTML='<div class="empty">প্রোফাইল ফিচার যোগ করতে লগইন ব্যবস্থা ও ব্যাকএন্ড প্রয়োজন।</div>'};
+el("rulesBtn").onclick=()=>alert("ভিডিও দেখার আগে সাইটের নিয়ম পড়ুন। কেবল নিজের বা ব্যবহারের অনুমতি থাকা ভিডিও প্রকাশ করুন।");
+el("menuBtn").onclick=()=>alert("ক্যাটাগরি বেছে ভিডিও খুঁজুন।");
+el("confirmAge").onclick=()=>{el("ageOverlay").style.display="none"};
+el("exitAge").onclick=()=>{document.body.innerHTML='<div style="color:white;text-align:center;padding:25vh 20px;font-family:system-ui"><h2>আপনি সাইট থেকে বেরিয়ে গেছেন</h2><p>এই পেজটি বন্ধ করতে পারেন।</p></div>'};
+render();
+</script>
+</body>
+</html>
